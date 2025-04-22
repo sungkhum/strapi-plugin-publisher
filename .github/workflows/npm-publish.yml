@@ -19,8 +19,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Build the plugin
-        run: yarn build
       - name: Get the release tag version
         id: get_version
         run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
