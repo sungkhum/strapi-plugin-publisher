@@ -7,12 +7,12 @@ export default ({ strapi }) => ({
 	 * Publish a single record
 	 *
 	 */
-	async publish(uid, entityId = {}) {
+	async publish(uid, entityId, { locale }) {
 		try {
 			const publishedEntity = await strapi.documents(uid).publish({
 				documentId: entityId,
+				locale,
 			});
-			
 			const { hooks } = getPluginService('settingsService').get();
 			// emit publish event
 			await hooks.beforePublish({ strapi, uid, entity: publishedEntity });
@@ -26,10 +26,11 @@ export default ({ strapi }) => ({
 	 * Unpublish a single record
 	 *
 	 */
-	async unpublish(uid, entityId) {
+	async unpublish(uid, entityId, { locale }) {
 		try {
 			const unpublishedEntity = await strapi.documents(uid).unpublish({
 				documentId: entityId,
+				locale,
 			});
 			const { hooks } = getPluginService('settingsService').get();
 			// Emit events
@@ -47,7 +48,7 @@ export default ({ strapi }) => ({
 	async toggle(record, mode) {
 		// handle single content type, id is always 1
 		const entityId = record.entityId || 1;
-
+		console.log('record', record);
 		// Find the published entity
 		const publishedEntity = await strapi.documents(record.entitySlug).findOne({
 			documentId: entityId,
@@ -60,6 +61,9 @@ export default ({ strapi }) => ({
 			status: 'draft',
 		});
 
+		const isLocalized = !!strapi.contentType(record.entitySlug).pluginOptions?.i18n?.localized;
+		console.log('Is content type localized:', isLocalized);
+
 		// Determine the current state of the entity
 		const isPublished = !! publishedEntity;
 		const isDraft = !! draftEntity;
@@ -67,9 +71,12 @@ export default ({ strapi }) => ({
 		// Determine if the draft entity is newer than the published entity, if it's considered modified
 		const isModified = isPublished && isDraft && draftEntity.updatedAt > publishedEntity.updatedAt;
 
+		console.log('Locale being passed to publish:', record.locale);
+
 		if (mode === 'publish' && ((!isPublished && isDraft) || isModified)) {
 			await this.publish(record.entitySlug, entityId, {
 				publishedAt: record.executeAt ? new Date(record.executeAt) : new Date(),
+				locale: record.locale,
 			});
 		} else if (mode === 'unpublish' && isPublished) {
 			await this.unpublish(record.entitySlug, entityId);

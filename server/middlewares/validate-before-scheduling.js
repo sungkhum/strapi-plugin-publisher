@@ -1,16 +1,16 @@
-import { errors } from "@strapi/utils";
+import { errors } from '@strapi/utils';
 
 const validationMiddleware = async (context, next) => {
-  const { uid, action, params } = context;
-  // Run this middleware only for the publisher action.
-  if (uid !== 'plugin::publisher.action') {
-    return next();
-  }
+	const { uid, action, params } = context;
+	// Run this middleware only for the publisher action.
+	if (uid !== 'plugin::publisher.action') {
+		return next();
+	}
 
-  // Run it only for the create and update actions.
-  if (action !== 'create' && action !== 'update') {
-    return next();
-  }
+	// Run it only for the create and update actions.
+	if (action !== 'create' && action !== 'update') {
+		return next();
+	}
 
 	// The create action will have the data directly.
 	let publisherAction = params.data;
@@ -34,6 +34,7 @@ const validationMiddleware = async (context, next) => {
 	const draft = await strapi.documents(entitySlug).findOne({
 		documentId: entityId,
 		status: 'draft',
+		locale: params.data.locale,
 		populate: '*',
 	});
 
@@ -42,12 +43,23 @@ const validationMiddleware = async (context, next) => {
 		throw new errors.NotFoundError(`No entity found with documentId ${entityId} for content type ${entitySlug}`);
 	}
 
+	if (draft.locale) {
+		params.data.locale = draft.locale;
+	}
+
 	// Fetch the published entity.
 	const published = await strapi.documents(entitySlug).findOne({
 		documentId: entityId,
 		status: 'published',
+		locale: draft.locale,
 		populate: '*',
 	});
+
+	if (! published) {
+		console.warn(`No published entity found for documentId ${entityId} and locale ${draft.locale}`);
+	}
+
+	console.log(published, 'published');
 
 	// Run the validations.
 	await strapi.entityValidator.validateEntityCreation(
@@ -62,7 +74,7 @@ const validationMiddleware = async (context, next) => {
 		published,
 	);
 
-  return next();
+	return next();
 };
 
 export default validationMiddleware;
