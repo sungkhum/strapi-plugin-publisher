@@ -34,19 +34,9 @@ const ActionManagerComponent = ({ document, entity }) => {
 		return null;
 	}
 
-	const useLocaleFromUrl = () => {
-		const { search } = useLocation();
-		const params = new URLSearchParams(search);
-		return params.get('plugins[i18n][locale]');
-	};
-
-	const localeFromUrl = useLocaleFromUrl();
-	console.log('localeFromUrl', localeFromUrl);
-
 	const localizedEntry = [document, ...(document.localizations || [])].find(
 		(entry) => entry.locale === currentLocale
 	);
-	console.log('localizedEntry', localizedEntry);
 
 	if (!localizedEntry) return null;
 
@@ -88,7 +78,6 @@ const ActionManagerComponent = ({ document, entity }) => {
 
 const ActionManager = () => {
 	const entity = useContentManagerContext();
-
 	const { document } = useDocument({
 		documentId: entity?.id,
 		model: entity?.model,
@@ -102,7 +91,6 @@ const ActionManager = () => {
 	if (! document || ! entity) {
 		return null;
 	}
-	console.log('document 1234', document);
 
 	return <ActionManagerComponent document={document} entity={entity} />;
 };

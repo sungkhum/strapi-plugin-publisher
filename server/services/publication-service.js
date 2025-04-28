@@ -48,7 +48,6 @@ export default ({ strapi }) => ({
 	async toggle(record, mode) {
 		// handle single content type, id is always 1
 		const entityId = record.entityId || 1;
-		console.log('record', record);
 		// Find the published entity
 		const publishedEntity = await strapi.documents(record.entitySlug).findOne({
 			documentId: entityId,
@@ -62,7 +61,6 @@ export default ({ strapi }) => ({
 		});
 
 		const isLocalized = !!strapi.contentType(record.entitySlug).pluginOptions?.i18n?.localized;
-		console.log('Is content type localized:', isLocalized);
 
 		// Determine the current state of the entity
 		const isPublished = !! publishedEntity;
@@ -70,8 +68,6 @@ export default ({ strapi }) => ({
 
 		// Determine if the draft entity is newer than the published entity, if it's considered modified
 		const isModified = isPublished && isDraft && draftEntity.updatedAt > publishedEntity.updatedAt;
-
-		console.log('Locale being passed to publish:', record.locale);
 
 		if (mode === 'publish' && ((!isPublished && isDraft) || isModified)) {
 			await this.publish(record.entitySlug, entityId, {
