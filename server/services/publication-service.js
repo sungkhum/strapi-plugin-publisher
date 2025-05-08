@@ -60,8 +60,6 @@ export default ({ strapi }) => ({
 			status: 'draft',
 		});
 
-		const isLocalized = !!strapi.contentType(record.entitySlug).pluginOptions?.i18n?.localized;
-
 		// Determine the current state of the entity
 		const isPublished = !! publishedEntity;
 		const isDraft = !! draftEntity;
@@ -75,7 +73,9 @@ export default ({ strapi }) => ({
 				locale: record.locale,
 			});
 		} else if (mode === 'unpublish' && isPublished) {
-			await this.unpublish(record.entitySlug, entityId);
+			await this.unpublish(record.entitySlug, entityId, {
+				locale: record.locale,
+			});
 		}
 
 		// Remove any used actions
