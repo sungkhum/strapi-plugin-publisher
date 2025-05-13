@@ -1,8 +1,8 @@
 {
     "$schema": "https://json.schemastore.org/package",
-    "name": "strapi-plugin-publisher",
+    "name": "strapi-plugin-publisher-timezone",
     "version": "2.0.0-beta.10",
-    "description": "A plugin for Strapi Headless CMS that provides the ability to schedule publishing for any content type.",
+    "description": "A plugin for Strapi Headless CMS that provides the ability to schedule publishing for any content type with timezone.",
     "scripts": {
         "lint": "eslint . --fix",
         "format": "prettier --write **/*.{ts,js,json,yml}",
@@ -35,13 +35,13 @@
             "url": "https://github.com/PluginPal"
         }
     ],
-    "homepage": "https://github.com/PluginPal/strapi-plugin-publisher#readme",
+    "homepage": "https://github.com/sungkhum/strapi-plugin-publisher#readme",
     "repository": {
         "type": "git",
-        "url": "https://github.com/PluginPal/strapi-plugin-publisher.git"
+        "url": "https://github.com/sungkhum/strapi-plugin-publisher.git"
     },
     "bugs": {
-        "url": "https://github.com/PluginPal/strapi-plugin-publisher/issues"
+        "url": "https://github.com/sungkhum/strapi-plugin-publisher/issues"
     },
     "dependencies": {
         "lodash": "^4.17.21",
@@ -75,9 +75,9 @@
         "styled-components": "^6.0.0"
     },
     "strapi": {
-        "displayName": "Publisher",
-        "name": "publisher",
-        "description": "A plugin for Strapi Headless CMS that provides the ability to schedule publishing for any content type.",
+        "displayName": "Publisher Timezone",
+        "name": "publishertimezone",
+        "description": "A plugin for Strapi Headless CMS that provides the ability to schedule publishing for any content type with timezone.",
         "kind": "plugin"
     },
     "engines": {
