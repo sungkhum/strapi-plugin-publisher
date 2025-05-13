@@ -31,8 +31,8 @@
     },
     "maintainers": [
         {
-            "name": "@PluginPal",
-            "url": "https://github.com/PluginPal"
+            "name": "@sungkhum",
+            "url": "https://github.com/sungkhum"
         }
     ],
     "homepage": "https://github.com/sungkhum/strapi-plugin-publisher/#readme",
@@ -75,8 +75,8 @@
         "styled-components": "^6.0.0"
     },
     "strapi": {
-        "displayName": "Publisher",
-        "name": "publisher",
+        "displayName": "Publisher with Timezone",
+        "name": "publishertimezone",
         "description": "A plugin for Strapi Headless CMS that provides the ability to schedule publishing for any content type with default timezone.",
         "kind": "plugin"
     },
