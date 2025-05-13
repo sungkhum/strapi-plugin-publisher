@@ -44,6 +44,8 @@
         "url": "https://github.com/sungkhum/strapi-plugin-publisher-timezone/issues"
     },
     "dependencies": {
+        "date-fns": "^4.1.0",
+        "date-fns-tz": "^3.2.0",
         "lodash": "^4.17.21",
         "prop-types": "^15.8.1",
         "react-intl": "^6.6.2",

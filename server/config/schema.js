@@ -5,7 +5,6 @@ const pluginConfigSchema = yup.object().shape({
 		.object()
 		.shape({
 			syncFrequency: yup.string().optional(),
-			defaultTimezone: yup.string().optional(),
 		})
 		.optional(),
 	hooks: yup.object().optional(),

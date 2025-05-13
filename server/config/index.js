@@ -5,7 +5,6 @@ export default {
 		enabled: true,
 		actions: {
 			syncFrequency: '*/1 * * * *',
-			defaultTimezone: 'UTC',
 		},
 		hooks: {
 			beforePublish: () => {},
