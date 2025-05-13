@@ -35,13 +35,13 @@
             "url": "https://github.com/sungkhum"
         }
     ],
-    "homepage": "https://github.com/sungkhum/strapi-plugin-publisher#readme",
+    "homepage": "https://github.com/sungkhum/strapi-plugin-publisher-timezone#readme",
     "repository": {
         "type": "git",
-        "url": "https://github.com/sungkhum/strapi-plugin-publisher.git"
+        "url": "https://github.com/sungkhum/strapi-plugin-publisher-timezone.git"
     },
     "bugs": {
-        "url": "https://github.com/sungkhum/strapi-plugin-publisher/issues"
+        "url": "https://github.com/sungkhum/strapi-plugin-publisher-timezone/issues"
     },
     "dependencies": {
         "lodash": "^4.17.21",
