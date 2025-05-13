@@ -76,7 +76,7 @@
     },
     "strapi": {
         "displayName": "Publisher Timezone",
-        "name": "publishertimezone",
+        "name": "publisher",
         "description": "A plugin for Strapi Headless CMS that provides the ability to schedule publishing for any content type with timezone.",
         "kind": "plugin"
     },
